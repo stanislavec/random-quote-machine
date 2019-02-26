@@ -1,6 +1,15 @@
 const API =  "https://api.forismatic.com/api/1.0/?method=getQuote&key=random&format=jsonp&lang=ru&jsonp=?";
 const shareTwitter = "https://twitter.com/intent/tweet?text=";
-const colorsArr = ["#14cc8d", "#1481cc", "#cc3114", "#bb14cc", "#14ccbb", "#5f14cc", "#cc8d14"];
+const colorsArr = [
+  "#14cc8d",
+  "#1481cc",
+  "#cc3114",
+  "#bb14cc",
+  "#14ccbb",
+  "#5f14cc",
+  "#cc8d14",
+  "#2E8B57"
+];
 const article = document.getElementById('article');
 const author = document.querySelector('.author');
 const href = document.querySelector('.href');
@@ -15,7 +24,13 @@ function onClick() {
 
 // Получаем рандомный цвет для фона
 function getRandomColor() {
-  document.body.style.background = colorsArr[Math.round(Math.random()*(6 - 0) + 0)];
+  axios({
+    method:'get',
+    url:'http://www.colr.org/json/color/random'
+  })
+    .then(function (response) {
+      document.body.style.background = "#" + response.data.new_color
+    });
 }
 
 // напишем функцию getData
